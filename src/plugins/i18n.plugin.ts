@@ -5,7 +5,7 @@ import { createI18n } from 'vue-i18n';
 
 const i18n = createI18n({
   legacy: false,
-  locale: 'en',
+  locale: ['en', 'es', 'fr', 'pt', 'uk', 'vi', 'zh'].find(t => navigator.language.startsWith(t)) || 'zh', // 'en',
   messages,
 });
 
