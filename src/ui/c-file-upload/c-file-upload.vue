@@ -16,6 +16,8 @@ const emit = defineEmits<{
   (event: 'fileUpload', file: File): void
 }>();
 
+const { t } = useI18n();
+
 const { multiple } = toRefs(props);
 
 const isOverDropZone = ref(false);
@@ -88,7 +90,7 @@ function handleUpload(files: FileList | null | undefined) {
       </div>
 
       <c-button>
-        Browse files
+        {{ t('ui.c-file-upload.browse-files') }}
       </c-button>
     </slot>
   </div>

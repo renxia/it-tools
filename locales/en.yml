@@ -3,6 +3,7 @@ home:
     newestTools: Newest tools
     favoriteTools: 'Your favorite tools'
     allTools: 'All the tools'
+  title: 'IT - TOOLS'
   subtitle: 'Handy tools for developers'
   toggleMenu: 'Toggle menu'
   home: Home
@@ -56,7 +57,20 @@ toolCard:
   new: New
 search:
   label: Search
+
+ui:
+  c-file-upload:
+    browse-files: 'Browse files'
+
+comm:
+  copy: Copy
+  copyed: Copied to Clipboard
+
 tools:
+  torrent-to-magnet:
+    title: BT种子转磁力链接
+    description: 支持将 BT 种子文件转换为磁力链接的在线工具。
+
   categories:
     favorite-tools: 'Your favorite tools'
     crypto: Crypto
