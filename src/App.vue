@@ -23,8 +23,8 @@ syncRef(
 <template>
   <n-config-provider :theme="theme" :theme-overrides="themeOverrides">
     <NGlobalStyle />
-    <NMessageProvider placement="bottom">
-      <NNotificationProvider placement="bottom-right">
+    <NMessageProvider placement="top">
+      <NNotificationProvider placement="top-right">
         <component :is="layout">
           <RouterView />
         </component>
