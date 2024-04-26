@@ -1,6 +1,9 @@
 import { resolve } from 'node:path';
 import { URL, fileURLToPath } from 'node:url';
 
+import { readdirSync } from 'node:fs';
+import seoPrerender from 'vite-plugin-seo-prerender';
+
 import VueI18n from '@intlify/unplugin-vue-i18n/vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
@@ -17,10 +20,14 @@ import svgLoader from 'vite-svg-loader';
 import { configDefaults } from 'vitest/config';
 
 const baseUrl = process.env.BASE_URL ?? '/';
-
+const f = ['iban-validator-and-parser'];
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    seoPrerender({
+      // delay: 5000,
+      routes: readdirSync('./src/tools').filter(d => !f.includes(d) && !d.includes('.') && d.includes('-')).map(d => `/${d}`),
+    }),
     VueI18n({
       runtimeOnly: true,
       jitCompilation: true,

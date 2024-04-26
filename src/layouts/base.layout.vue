@@ -17,8 +17,8 @@ import CollapsibleToolMenu from '@/components/CollapsibleToolMenu.vue';
 
 const themeVars = useThemeVars();
 const styleStore = useStyleStore();
-const version = config.app.version;
-const commitSha = config.app.lastCommitSha.slice(0, 7);
+// const version = config.app.version;
+// const commitSha = config.app.lastCommitSha.slice(0, 7);
 
 const { tracker } = useTracker();
 const { t } = useI18n();
@@ -39,7 +39,7 @@ const tools = computed<ToolCategory[]>(() => [
         <HeroGradient class="gradient" />
         <div class="text-wrapper">
           <div class="title">
-            IT - TOOLS
+            {{ $t('home.title') }}
           </div>
           <div class="divider" />
           <div class="subtitle">
@@ -60,7 +60,7 @@ const tools = computed<ToolCategory[]>(() => [
         <CollapsibleToolMenu :tools-by-category="tools" />
 
         <div class="footer">
-          <div>
+          <!-- <div>
             IT-Tools
 
             <c-link target="_blank" rel="noopener" :href="`https://github.com/CorentinTh/it-tools/tree/v${version}`">
@@ -78,11 +78,11 @@ const tools = computed<ToolCategory[]>(() => [
                 {{ commitSha }}
               </c-link>
             </template>
-          </div>
+          </div> -->
           <div>
             © {{ new Date().getFullYear() }}
-            <c-link target="_blank" rel="noopener" href="https://github.com/CorentinTh">
-              Corentin Thomasset
+            <c-link target="_blank" rel="noopener" href="https://github.com/renxia/it-tools/issues">
+              lzw.me
             </c-link>
           </div>
         </div>
