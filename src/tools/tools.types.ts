@@ -1,6 +1,6 @@
 import type { Component } from 'vue';
 
-export interface Tool {
+export interface Tool<T = any> {
   name: string
   path: string
   description: string
@@ -10,6 +10,7 @@ export interface Tool {
   redirectFrom?: string[]
   isNew: boolean
   createdAt?: Date
+  config?: T
 }
 
 export interface ToolCategory {
@@ -17,4 +18,4 @@ export interface ToolCategory {
   components: Tool[]
 }
 
-export type ToolWithCategory = Tool & { category: string };
+export type ToolWithCategory = Tool & { category: string; categoryKey: string };
