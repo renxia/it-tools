@@ -49,7 +49,7 @@ const { isDarkTheme } = toRefs(styleStore);
     <c-button
       circle
       variant="text"
-      href="https://lzw.me/messagewall"
+      href="https://lzw.me/tools-messagewall"
       target="_blank"
       rel="noopener noreferrer"
       :aria-label="$t('home.nav.githubRepository')"

@@ -84,15 +84,37 @@ import { tool as uuidGenerator } from './uuid-generator';
 import { tool as macAddressLookup } from './mac-address-lookup';
 import { tool as xmlFormatter } from './xml-formatter';
 import { tool as yamlViewer } from './yaml-viewer';
+import * as FL from './frame-loader';
 
 export const toolsByCategory: ToolCategory[] = [
   {
     name: 'Crypto',
-    components: [tokenGenerator, hashText, bcrypt, uuidGenerator, ulidGenerator, cypher, bip39, hmacGenerator, rsaKeyPairGenerator, passwordStrengthAnalyser, pdfSignatureChecker],
+    components: [
+      tokenGenerator,
+      hashText,
+      bcrypt,
+      uuidGenerator,
+      ulidGenerator,
+      cypher,
+      bip39,
+      hmacGenerator,
+      rsaKeyPairGenerator,
+      passwordStrengthAnalyser,
+      pdfSignatureChecker,
+      FL.wechatDat,
+      FL.randomPassword,
+    ],
   },
   {
     name: 'Converter',
     components: [
+      FL.idcard,
+      FL.rmb,
+      FL.ncmToMp3,
+      FL.s2t,
+      FL.videoSpider,
+      FL.getPoint,
+      FL.getMyCoordinate,
       torrentToMagnet,
       dateTimeConverter,
       baseConverter,
@@ -134,11 +156,12 @@ export const toolsByCategory: ToolCategory[] = [
       httpStatusCodes,
       jsonDiff,
       safelinkDecoder,
+      FL.sriHash,
     ],
   },
   {
     name: 'Images and videos',
-    components: [qrCodeGenerator, wifiQrCodeGenerator, svgPlaceholderGenerator, cameraRecorder],
+    components: [FL.m3u8Player, FL.saoma, qrCodeGenerator, wifiQrCodeGenerator, svgPlaceholderGenerator, cameraRecorder, FL.idphotomaker],
   },
   {
     name: 'Development',
@@ -158,7 +181,7 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Network',
-    components: [ipv4SubnetCalculator, ipv4AddressConverter, ipv4RangeExpander, macAddressLookup, macAddressGenerator, ipv6UlaGenerator],
+    components: [FL.ipQuery, ipv4SubnetCalculator, ipv4AddressConverter, ipv4RangeExpander, macAddressLookup, macAddressGenerator, ipv6UlaGenerator],
   },
   {
     name: 'Math',
@@ -166,27 +189,33 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Measurement',
-    components: [chronometer, temperatureConverter, benchmarkBuilder],
+    components: [chronometer, temperatureConverter, benchmarkBuilder, FL.screenTest, FL.relationship, FL.ageCalc, FL.fund],
   },
   {
     name: 'Text',
-    components: [
-      loremIpsumGenerator,
-      textStatistics,
-      emojiPicker,
-      stringObfuscator,
-      textDiff,
-      numeronymGenerator,
-      asciiTextDrawer,
-    ],
+    components: [loremIpsumGenerator, textStatistics, emojiPicker, stringObfuscator, textDiff, numeronymGenerator, asciiTextDrawer],
   },
   {
     name: 'Data',
     components: [phoneParserAndFormatter, ibanValidatorAndParser],
   },
+  {
+    name: 'Fun',
+    components: [...FL.funs],
+  },
+  {
+    name: 'Games',
+    components: [],
+  },
+  {
+    name: 'Documents',
+    components: [...FL.Docs],
+  },
+  {
+    name: 'Others',
+    components: [FL.dailyNews],
+  },
 ];
 
 export const tools = toolsByCategory.flatMap(({ components }) => components);
-export const toolsWithCategory = toolsByCategory.flatMap(({ components, name }) =>
-  components.map(tool => ({ category: name, ...tool })),
-);
+export const toolsWithCategory = toolsByCategory.flatMap(({ components, name }) => components.map(tool => ({ category: name, ...tool })));

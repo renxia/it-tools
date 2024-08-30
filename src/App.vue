@@ -49,4 +49,13 @@ html {
 * {
   box-sizing: border-box;
 }
+
+.hide,
+.hidden {
+  display: none !important;
+}
+
+.tk-footer {
+  visibility: hidden
+}
 </style>

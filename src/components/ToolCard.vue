@@ -33,7 +33,7 @@ const theme = useThemeVars();
         {{ tool.name }}
       </div>
 
-      <div class="line-clamp-2 text-neutral-500 dark:text-neutral-400">
+      <div class="line-clamp-2 text-neutral-500 dark:text-neutral-400" :title="tool.description">
         {{ tool.description }}
       </div>
     </c-card>

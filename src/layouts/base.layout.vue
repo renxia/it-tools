@@ -81,7 +81,7 @@ const tools = computed<ToolCategory[]>(() => [
           </div> -->
           <div>
             © {{ new Date().getFullYear() }}
-            <c-link target="_blank" rel="noopener" href="https://github.com/renxia/it-tools/issues">
+            <c-link target="_blank" rel="noopener" href="https://lzw.me/tools-messagewall">
               lzw.me
             </c-link>
           </div>
@@ -123,7 +123,7 @@ const tools = computed<ToolCategory[]>(() => [
         <c-tooltip position="bottom" :tooltip="$t('home.support')">
           <c-button
             round
-            href="https://www.buymeacoffee.com/cthmsst"
+            href="https://lzw.me/donate"
             rel="noopener"
             target="_blank"
             class="support-button"

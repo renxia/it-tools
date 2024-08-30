@@ -8,7 +8,7 @@ import { config } from '@/config';
 
 const toolStore = useToolStore();
 
-useHead({ title: 'IT Tools - Handy online tools for developers' });
+useHead({ title: '有趣工具箱 - Handy online tools for developers' });
 const { t } = useI18n();
 </script>
 
@@ -39,7 +39,7 @@ const { t } = useI18n();
       <transition name="height">
         <div v-if="toolStore.favoriteTools.length > 0">
           <h3 class="mb-5px mt-25px font-500 text-neutral-400">
-            {{ $t('home.categories.favoriteTools') }}
+            {{ $t('home.categories.favoriteTools') }} ({{ toolStore.favoriteTools.length }})
           </h3>
           <div class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
             <ToolCard v-for="tool in toolStore.favoriteTools" :key="tool.name" :tool="tool" />
@@ -49,7 +49,7 @@ const { t } = useI18n();
 
       <div v-if="toolStore.newTools.length > 0">
         <h3 class="mb-5px mt-25px font-500 text-neutral-400">
-          {{ t('home.categories.newestTools') }}
+          {{ t('home.categories.newestTools') }} ({{ toolStore.newTools.length }})
         </h3>
         <div class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
           <ToolCard v-for="tool in toolStore.newTools" :key="tool.name" :tool="tool" />
@@ -57,7 +57,7 @@ const { t } = useI18n();
       </div>
 
       <h3 class="mb-5px mt-25px font-500 text-neutral-400">
-        {{ $t('home.categories.allTools') }}
+        {{ $t('home.categories.allTools') }} ({{ toolStore.tools.length }})
       </h3>
       <div class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
         <ToolCard v-for="tool in toolStore.tools" :key="tool.name" :tool="tool" />
