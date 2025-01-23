@@ -28,6 +28,37 @@ const { t } = useI18n();
 const i18nKey = computed<string>(() => route.path.trim().replace('/', ''));
 const toolTitle = computed<string>(() => t(`tools.${i18nKey.value}.title`, String(route.meta.name)));
 const toolDescription = computed<string>(() => t(`tools.${i18nKey.value}.description`, String(route.meta.description)));
+const showTwikoow = ref(false);
+
+watch(route, (r) => {
+  const cfg = (r.meta as unknown as Tool).config || {};
+
+  setTimeout(() => {
+    const h5Utils = (window as any).h5Utils;
+
+    if (h5Utils?.initTwikoo) {
+      const el = document.getElementById('twikoo');
+
+      if (el) {
+        el.innerHTML = '';
+
+        showTwikoow.value = !cfg.remoteUrl;
+
+        if (!cfg.remoteUrl) {
+          h5Utils.initTwikoo({ el: '#twikoo', path: r.path });
+        }
+      }
+    }
+
+    const gga = document.getElementById('gga');
+    if (gga) {
+      gga.style.display = cfg.remoteUrl ? 'none' : 'block';
+      if (h5Utils?.initGa && gga.innerHTML.trim() === '') {
+        h5Utils.initGa(gga);
+      }
+    }
+  }, 50);
+}, { immediate: true });
 </script>
 
 <template>
@@ -52,13 +83,26 @@ const toolDescription = computed<string>(() => t(`tools.${i18nKey.value}.descrip
       </div>
     </div>
 
+    <div id="gga" class="t-row" />
+
     <div class="tool-content">
       <slot />
     </div>
+
+    <c-card id="twikooWrapper" class="t-row mb-4 mt-4" :style="{ display: showTwikoow ? 'block' : 'none' }" title="评论">
+      <div id="twikoo" />
+    </c-card>
   </BaseLayout>
 </template>
 
 <style lang="less" scoped>
+.t-row {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
 .tool-content {
   display: flex;
   flex-direction: row;

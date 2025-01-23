@@ -56,6 +56,16 @@ html {
 }
 
 .tk-footer {
-  visibility: hidden
+  visibility: hidden;
+}
+
+@media (min-width: 1680px) {
+  .wd\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .wd\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
 }
 </style>
