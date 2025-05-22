@@ -11,19 +11,14 @@ import { config } from '@/config';
 const toolStore = useToolStore();
 const { t } = useI18n();
 
-const favoriteTools = computed(() => toolStore.favoriteTools);
-
 useHead({ title: `${t('home.title')} - ${t('home.subtitle')}` });
-
-// Update favorite tools order when drag is finished
-function onUpdateFavoriteTools() {
-  toolStore.updateFavoriteTools(favoriteTools.value); // Update the store with the new order
-}
 </script>
 
 <template>
-  <div class="pt-50px">
-    <div class="grid-wrapper">
+  <favorite-list />
+
+  <div class="mb-50px p-15px pt-0">
+    <div class="grid-wrapper mx-auto max-w-1400px">
       <div class="wd:grid-cols-6 grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
         <ColoredCard v-if="config.showBanner" :title="$t('home.follow.title')" :icon="IconHeart">
           {{ $t('home.follow.p1') }}
@@ -44,28 +39,6 @@ function onUpdateFavoriteTools() {
           <n-icon :component="IconHeart" />
         </ColoredCard>
       </div>
-
-      <transition name="height">
-        <div v-if="toolStore.favoriteTools.length > 0">
-          <h3 class="mb-5px mt-25px text-neutral-400 font-500">
-            {{ $t('home.categories.favoriteTools') }} ({{ toolStore.favoriteTools.length }})
-            <c-tooltip :tooltip="$t('home.categories.favoritesDndToolTip')">
-              <n-icon :component="IconDragDrop" size="18" />
-            </c-tooltip>
-          </h3>
-          <Draggable
-            :list="favoriteTools"
-            class="wd:grid-cols-6 grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4"
-            ghost-class="ghost-favorites-draggable"
-            item-key="name"
-            @end="onUpdateFavoriteTools"
-          >
-            <template #item="{ element: tool }">
-              <ToolCard :tool="tool" />
-            </template>
-          </Draggable>
-        </div>
-      </transition>
 
       <div v-if="toolStore.newTools.length > 0">
         <h3 class="mb-5px mt-25px text-neutral-400 font-500">

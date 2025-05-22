@@ -1,6 +1,12 @@
 import type { Component } from 'vue';
 
-export interface Tool<T = any> {
+export interface ToolCustomConfig extends Record<number | string, any> {
+  /** 为 iframe 远程加载组件时的 src 地址 */
+  remoteUrl?: string
+  hideHeader?: boolean
+}
+
+export interface Tool {
   name: string
   path: string
   description: string
@@ -10,7 +16,7 @@ export interface Tool<T = any> {
   redirectFrom?: string[]
   isNew: boolean
   createdAt?: Date
-  config?: T
+  config?: ToolCustomConfig
 }
 
 export interface ToolCategory {

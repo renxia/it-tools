@@ -2,7 +2,7 @@
  * @Author: renxia
  * @Date: 2024-04-18 09:05:51
  * @LastEditors: renxia
- * @LastEditTime: 2024-08-09 15:35:20
+ * @LastEditTime: 2025-05-22 16:57:36
  * @Description:
  */
 import { createRouter, createWebHistory } from 'vue-router';
@@ -13,6 +13,7 @@ import { tools } from './tools';
 import { config } from './config';
 import { routes as demoRoutes } from './ui/demo/demo.routes';
 import CategoriesList from './pages/CategoriesList.vue';
+import FavoriteList from './pages/FavoriteList.vue';
 
 const toolsRoutes = tools.map(({ path, name, component, ...config }) => ({
   path,
@@ -38,6 +39,12 @@ const router = createRouter({
       path: '/about',
       name: 'about',
       component: () => import('./pages/About.vue'),
+    },
+    {
+      path: '/favorite',
+      name: 'favorite',
+      component: FavoriteList,
+      meta: { isPage: true },
     },
     {
       path: '/category/:category',

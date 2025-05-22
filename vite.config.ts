@@ -67,7 +67,7 @@ export default defineConfig({
         name: '有趣工具箱',
         description: '为开发人员提供的一组有用工具。',
         display: 'standalone',
-        lang: 'fr-FR',
+        lang: 'zh-CN',
         start_url: `${baseUrl}?utm_source=pwa&utm_medium=pwa`,
         orientation: 'any',
         theme_color: '#18a058',

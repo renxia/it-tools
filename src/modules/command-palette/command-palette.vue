@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import _ from 'lodash';
+import { IconSearch } from '@tabler/icons-vue';
 import { useCommandPaletteStore } from './command-palette.store';
 import type { PaletteOption } from './command-palette.types';
+import { useStyleStore } from '@/stores/style.store';
 
 const isModalOpen = ref(false);
 const inputRef = ref();
 const router = useRouter();
 const isMac = computed(() => window.navigator.userAgent.toLowerCase().includes('mac'));
-
+const styleStore = useStyleStore();
 const commandPaletteStore = useCommandPaletteStore();
 const { searchPrompt, filteredSearchResult } = storeToRefs(commandPaletteStore);
 
@@ -112,26 +114,40 @@ function activateOption(option: PaletteOption) {
 
 <template>
   <div flex-1>
-    <c-button w-full important:justify-start @click="isModalOpen = true">
-      <span flex items-center gap-3 op-40>
+    <template v-if="!styleStore.isLargeScreen">
+      <c-tooltip :tooltip="isMac ? 'Cmd' : 'Ctrl' + '&nbsp;+&nbsp;K'" position="bottom">
+        <c-button circle variant="text" :aria-label="$t('home.nav.mode')" @click="isModalOpen = true">
+          <n-icon size="25" :component="IconSearch" />
+        </c-button>
+      </c-tooltip>
+    </template>
+    <template v-else>
+      <c-button w-full important:justify-start @click="isModalOpen = true">
+        <span flex items-center gap-3 op-40>
+          <icon-mdi-search />
+          {{ $t('search.label') }}
 
-        <icon-mdi-search />
-        {{ $t('search.label') }}
-
-        <span hidden flex-1 border border-current border-op-40 rounded border-solid px-5px py-3px sm:inline>
-          {{ isMac ? 'Cmd' : 'Ctrl' }}&nbsp;+&nbsp;K
+          <span hidden flex-1 border border-current border-op-40 rounded border-solid px-5px py-3px sm:inline>
+            {{ isMac ? 'Cmd' : 'Ctrl' }}&nbsp;+&nbsp;K
+          </span>
         </span>
-      </span>
-    </c-button>
+      </c-button>
+    </template>
 
     <c-modal v-model:open="isModalOpen" class="palette-modal" shadow-xl important:max-w-650px important:pa-12px @keydown="handleKeydown">
       <c-input-text ref="inputRef" v-model:value="searchPrompt" raw-text :placeholder="$t('search.placeholder')" autofocus clearable />
 
       <div v-for="(options, category) in filteredSearchResult" :key="category">
-        <div ml-3 mt-3 text-sm font-bold text-primary op-60>
+        <div class="ml-3 mt-3 text-sm text-primary font-bold op-60">
           {{ category }}
         </div>
-        <command-palette-option v-for="option in options" :key="option.name" :option="option" :selected="selectedOptionIndex === getOptionIndex(option)" @activated="activateOption" />
+        <command-palette-option
+          v-for="option in options"
+          :key="option.name"
+          :option="option"
+          :selected="selectedOptionIndex === getOptionIndex(option)"
+          @activated="activateOption"
+        />
       </div>
     </c-modal>
   </div>
@@ -142,8 +158,8 @@ function activateOption(option: PaletteOption) {
   font-size: 18px;
 
   ::v-deep(.input-wrapper) {
-      padding: 4px;
-      padding-left: 18px;
+    padding: 4px;
+    padding-left: 18px;
   }
 }
 

@@ -1,24 +1,25 @@
 <script setup lang="ts">
-import type { Tool } from '../tools.types';
+import { getRouteInfo } from '@/utils/comm';
 
 const route = useRoute();
-const info = getInfo(route);
-
-function getInfo(r: typeof route) {
-  return {
-    config: (r.meta as unknown as Tool).config || {},
-    path: r.path.replace('/', ''),
-  };
-}
+const info = getRouteInfo(route);
+const loading = ref(true);
 
 function onLeave() {
   !info.config.remoteUrl && document.querySelector('#mLayoutContent')?.classList.remove('wide');
   !info.config.hideHeader && document.querySelector('.tool-layout')?.classList.remove('hide');
 }
 
+function onLoad() {
+  loading.value = false;
+}
+
 onBeforeRouteLeave((to) => {
-  Object.assign(info, getInfo(to));
+  Object.assign(info, getRouteInfo(to));
   onLeave();
+  if (info.config.remoteUrl) {
+    loading.value = true;
+  }
 });
 
 onMounted(() => {
@@ -28,7 +29,7 @@ onMounted(() => {
 
 onUnmounted(() => onLeave());
 
-const top = info.config.hideHeader ? '65px' : '225px';
+const top = info.config.hideHeader ? '80px' : '240px';
 // @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy#browser_compatibility
 const allow = [
   'accelerometer',
@@ -53,7 +54,10 @@ const allow = [
 
 <template>
   <div class="warpper">
-    <iframe :id="info.path" :src="info.config.remoteUrl" :allow="allow" frameborder="0" allowfullscreen="true" />
+    <div v-if="loading" class="loading flex items-center justify-center">
+      <n-spin :show="loading" size="large" />
+    </div>
+    <iframe :id="info.path" :src="info.config.remoteUrl" :allow="allow" frameborder="0" allowfullscreen="true" @load="onLoad" />
   </div>
 </template>
 
@@ -67,6 +71,17 @@ const allow = [
   align-items: center;
   justify-content: center;
   display: flex;
+  position: relative;
+
+  .loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(0,0,0,.1);
+  }
 
   iframe {
     width: 100%;

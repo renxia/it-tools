@@ -28,13 +28,14 @@ const { t } = useI18n();
 const i18nKey = computed<string>(() => route.path.trim().replace('/', ''));
 const toolTitle = computed<string>(() => t(`tools.${i18nKey.value}.title`, String(route.meta.name)));
 const toolDescription = computed<string>(() => t(`tools.${i18nKey.value}.description`, String(route.meta.description)));
-const showTwikoow = ref(false);
+const isFrameLoader = ref(route.meta.config?.remoteUrl != null);
 
 watch(route, (r) => {
   const cfg = (r.meta as unknown as Tool).config || {};
 
   setTimeout(() => {
     const h5Utils = (window as any).h5Utils;
+    isFrameLoader.value = cfg.remoteUrl != null;
 
     if (h5Utils?.initTwikoo) {
       const el = document.getElementById('twikoo');
@@ -42,9 +43,7 @@ watch(route, (r) => {
       if (el) {
         el.innerHTML = '';
 
-        showTwikoow.value = !cfg.remoteUrl;
-
-        if (!cfg.remoteUrl) {
+        if (!isFrameLoader.value) {
           h5Utils.initTwikoo({ el: '#twikoo', path: r.path });
         }
       }
@@ -63,7 +62,7 @@ watch(route, (r) => {
 
 <template>
   <BaseLayout>
-    <div class="tool-layout">
+    <div class="tool-layout max-w-1400px mx-auto">
       <div class="tool-header">
         <div flex flex-nowrap items-center justify-between>
           <n-h1>
@@ -83,26 +82,23 @@ watch(route, (r) => {
       </div>
     </div>
 
-    <div id="gga" class="t-row" />
-
-    <div class="tool-content">
+    <div class="tool-content mb-50px max-w-1400px mx-auto">
       <slot />
-    </div>
 
-    <c-card id="twikooWrapper" class="t-row mb-4 mt-4" :style="{ display: showTwikoow ? 'block' : 'none' }" title="评论">
-      <div id="twikoo" />
-    </c-card>
+      <div v-if="!isFrameLoader">
+        <RelatedTools />
+
+        <div id="gga" class="text-center" />
+    
+        <c-card id="twikooWrapper" class="mb-4 mt-4" title="评论">
+          <div id="twikoo" />
+        </c-card>
+      </div>
+    </div>
   </BaseLayout>
 </template>
 
 <style lang="less" scoped>
-.t-row {
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-  box-sizing: border-box;
-}
-
 .tool-content {
   display: flex;
   flex-direction: row;
@@ -112,12 +108,12 @@ watch(route, (r) => {
   gap: 16px;
 
   ::v-deep(& > *) {
-    flex: 0 1 900px;
+    // flex: 0 1 900px;
+    width: 100%;
   }
 }
 
 .tool-layout {
-  max-width: 900px;
   margin: 0 auto;
   box-sizing: border-box;
 

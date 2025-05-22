@@ -1,5 +1,6 @@
 home:
   categories:
+    relatedTools: 'Related tools'
     newestTools: Newest tools
     favoriteTools: 'Your favorite tools'
     allTools: 'All the tools'

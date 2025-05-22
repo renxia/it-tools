@@ -1,3 +1,5 @@
+import type { Tool } from '@/tools/tools.types';
+
 /** load js or css file from remote url */
 export async function loadJsOrCss(urls: string[] = []) {
   if (typeof urls == 'string') {
@@ -18,20 +20,26 @@ export async function loadJsOrCss(urls: string[] = []) {
     if (isCss) {
       (el as HTMLLinkElement).rel = 'stylesheet';
       (el as HTMLLinkElement).href = url;
-    }
-    else {
+    } else {
       (el as HTMLScriptElement).src = url;
       el.type = 'text/javascript';
     }
 
     list.push(
-      new Promise<void>((resolve) => {
+      new Promise<void>(resolve => {
         el.onload = () => resolve();
         setTimeout(() => resolve(), 10_000);
         document.querySelector('head')!.append(el);
-      }),
+      })
     );
   }
 
   return Promise.allSettled(list);
+}
+
+export function getRouteInfo(r: ReturnType<typeof useRoute>) {
+  return {
+    config: (r.meta as unknown as Tool).config || {},
+    path: r.path.replace(/^\//, ''),
+  };
 }
