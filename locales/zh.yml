@@ -1,5 +1,6 @@
 home:
   categories:
+    tag: '标签'
     relatedTools: '相关工具'
     newestTools: '最新工具'
     favoriteTools: '我的收藏'
@@ -61,13 +62,22 @@ search:
 
 ui:
   c-file-upload:
-    browse-files: '浏览文件'
+    title: 拖放文件到这里，或点击选择文件
+    browse-files: '选择文件'
 
 comm:
   copy: 复制
-  copyed: 已复制到剪贴板
+  copyed: 已复制！
+  download: 下载
+  input: 输入
+  inputPlaceholder: '请输入...'
+  output: 输出
 
 tools:
+  text-duplicate-remove:
+    title: 文本去重
+    description: 在线文本去重工具，支持去除所有重复行、仅保留首次出现、仅保留最后出现。
+
   torrent-to-magnet:
     title: BT种子转磁力链接
     description: 支持将 BT 种子文件转换为磁力链接的在线工具。
@@ -393,7 +403,7 @@ tools:
 
   text-diff:
     title: 文本比较
-    description: 比较两个文本并查看它们之间的差异。
+    description: 比较两个文本并查看它们之间的差异，也可以比较代码的不通之处。
 
   otp-generator:
     title: OTP代码生成器

@@ -5,6 +5,8 @@ import { tool as emailNormalizer } from './email-normalizer';
 import { tool as torrentToMagnet } from './torrent-to-magnet';
 
 import { tool as asciiTextDrawer } from './ascii-text-drawer';
+import { tool as textDuplicateRemove } from './text-duplicate-remove';
+import { tool as randomNumber } from './random-number';
 
 import { tool as textToUnicode } from './text-to-unicode';
 import { tool as safelinkDecoder } from './safelink-decoder';
@@ -201,11 +203,11 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Text',
-    components: [loremIpsumGenerator, textStatistics, emojiPicker, stringObfuscator, textDiff, numeronymGenerator, asciiTextDrawer],
+    components: [loremIpsumGenerator, textStatistics, emojiPicker, stringObfuscator, textDiff, numeronymGenerator, asciiTextDrawer, textDuplicateRemove],
   },
   {
     name: 'Data',
-    components: [phoneParserAndFormatter, ibanValidatorAndParser],
+    components: [phoneParserAndFormatter, ibanValidatorAndParser, randomNumber],
   },
   {
     name: 'Fun',

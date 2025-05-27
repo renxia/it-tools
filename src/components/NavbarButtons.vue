@@ -39,7 +39,7 @@ const { isDarkTheme } = toRefs(styleStore);
     </c-button>
   </c-tooltip> -->
 
-  <c-tooltip :tooltip="$t('home.categories.favoriteTools')" position="bottom">
+  <c-tooltip v-if="!styleStore.isSmallScreen" :tooltip="$t('home.categories.favoriteTools')" position="bottom">
     <c-button circle variant="text" to="/favorite" :aria-label="$t('home.categories.favoriteTools')">
       <n-icon size="25" :component="IconStarFilled" />
     </c-button>
@@ -51,7 +51,7 @@ const { isDarkTheme } = toRefs(styleStore);
       <n-icon v-else size="25" :component="IconMoon" />
     </c-button>
   </c-tooltip>
-  <c-tooltip tooltip="问题反馈" position="bottom">
+  <c-tooltip v-if="!styleStore.isSmallScreen" tooltip="问题反馈" position="bottom">
     <c-button
       circle
       variant="text"

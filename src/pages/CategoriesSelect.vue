@@ -14,7 +14,7 @@ const allCategories = computed(() =>
     .map((d) => {
       const key = d.components[0].categoryKey;
       return {
-        label: t(`tools.categories.${key}`, d.name),
+        label: t(`tools.categories.${key.replace(/-/g, ' ')}`, d.name),
         value: key,
       };
     }),

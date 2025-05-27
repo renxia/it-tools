@@ -19,12 +19,15 @@ onBeforeRouteLeave((to) => {
   onLeave();
   if (info.config.remoteUrl) {
     loading.value = true;
+    setTimeout(() => loading.value = false, 5000);
   }
 });
 
 onMounted(() => {
   info.config.remoteUrl && document.querySelector('#mLayoutContent')?.classList.add('wide');
   info.config.hideHeader && document.querySelector('.tool-layout')?.classList.add('hide');
+
+  setTimeout(() => loading.value = false, 5000);
 });
 
 onUnmounted(() => onLeave());

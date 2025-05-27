@@ -122,7 +122,7 @@ async function onUpload(file: File) {
   </c-card>
 
   <c-card title="File to base64">
-    <c-file-upload title="Drag and drop a file here, or click to select a file" @file-upload="onUpload" />
+    <c-file-upload @file-upload="onUpload" />
     <c-input-text :value="fileBase64" multiline readonly placeholder="File in base64 will be here" rows="5" my-2 />
 
     <div flex justify-center>

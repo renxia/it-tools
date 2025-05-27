@@ -5,18 +5,18 @@ const props = withDefaults(defineProps<{
   multiple?: boolean
   accept?: string
   title?: string
+  ui?: 'btn' | 'dropzone'
 }>(), {
   multiple: false,
   accept: undefined,
-  title: 'Drag and drop files here, or click to select files',
+  title: '',
+  ui: 'dropzone',
 });
 
 const emit = defineEmits<{
   (event: 'filesUpload', files: File[]): void
   (event: 'fileUpload', file: File): void
 }>();
-
-const { t } = useI18n();
 
 const { multiple } = toRefs(props);
 
@@ -56,28 +56,18 @@ function handleUpload(files: FileList | null | undefined) {
 </script>
 
 <template>
+  <input ref="fileInput" type="file" class="hidden" :multiple="multiple" :accept="accept" @change="handleFileInput">
   <div
+    v-if="props.ui === 'dropzone'"
     class="flex flex-col cursor-pointer items-center justify-center border-2px border-gray-300 border-opacity-50 rounded-lg border-dashed p-8 transition-colors"
     :class="{
       'border-primary border-opacity-100': isOverDropZone,
-    }"
-    @click="triggerFileInput"
-    @drop.prevent="handleDrop"
-    @dragover.prevent
-    @dragenter="isOverDropZone = true"
+    }" @click="triggerFileInput" @drop.prevent="handleDrop" @dragover.prevent @dragenter="isOverDropZone = true"
     @dragleave="isOverDropZone = false"
   >
-    <input
-      ref="fileInput"
-      type="file"
-      class="hidden"
-      :multiple="multiple"
-      :accept="accept"
-      @change="handleFileInput"
-    >
     <slot>
       <span op-70>
-        {{ title }}
+        {{ title || $t('ui.c-file-upload.title') }}
       </span>
 
       <!-- separator -->
@@ -90,8 +80,12 @@ function handleUpload(files: FileList | null | undefined) {
       </div>
 
       <c-button>
-        {{ t('ui.c-file-upload.browse-files') }}
+        {{ $t('ui.c-file-upload.browse-files') }}
       </c-button>
     </slot>
   </div>
+
+  <c-button v-else @click="triggerFileInput" @drop.prevent="handleDrop" @dragover.prevent>
+    {{ title || $t('ui.c-file-upload.browse-files') }}
+  </c-button>
 </template>

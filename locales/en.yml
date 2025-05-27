@@ -1,5 +1,6 @@
 home:
   categories:
+    tag: 'Tag'
     relatedTools: 'Related tools'
     newestTools: Newest tools
     favoriteTools: 'Your favorite tools'
@@ -63,16 +64,25 @@ search:
 
 ui:
   c-file-upload:
+    title: 'Drag and drop files here, or click to select files'
     browse-files: 'Browse files'
 
 comm:
-  copy: Copy
-  copyed: Copied to Clipboard
+  copy: Copy to Clipboard
+  copyed: Copied!
+  download: Download
+  input: Input
+  inputPlaceholder: 'Input...'
+  output: Output
 
 tools:
+  text-duplicate-remove:
+    title: Text duplicate remove
+    description: Online text duplicate remove tool, supports removing all duplicate lines, keeping the first appearance, and keeping the last appearance.
+
   torrent-to-magnet:
-    title: BT种子转磁力链接
-    description: 支持将 BT 种子文件转换为磁力链接的在线工具。
+    title: BT seed to magnet link
+    description: Convert BT seed files to magnet links online.
 
   categories:
     favorite-tools: 'Your favorite tools'

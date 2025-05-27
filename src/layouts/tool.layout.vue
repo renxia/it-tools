@@ -62,7 +62,7 @@ watch(route, (r) => {
 
 <template>
   <BaseLayout>
-    <div class="tool-layout max-w-1400px mx-auto">
+    <div class="tool-layout mx-auto max-w-1400px">
       <div class="tool-header">
         <div flex flex-nowrap items-center justify-between>
           <n-h1>
@@ -79,17 +79,24 @@ watch(route, (r) => {
         <div class="description">
           {{ toolDescription }}
         </div>
+
+        <div v-if="route.meta.keywords?.length" class="tags">
+          <router-link v-for="tag in (route.meta.keywords || [])" :key="tag" :to="`/tag/${tag}`">
+            <n-tag type="success" class="mr-2 mt-2 cursor-pointer">
+              {{ tag }}
+            </n-tag>
+          </router-link>
+        </div>
       </div>
     </div>
 
-    <div class="tool-content mb-50px max-w-1400px mx-auto">
+    <div class="tool-content mx-auto mb-50px max-w-1400px">
       <slot />
 
       <div v-if="!isFrameLoader">
         <RelatedTools />
 
         <div id="gga" class="text-center" />
-    
         <c-card id="twikooWrapper" class="mb-4 mt-4" title="评论">
           <div id="twikoo" />
         </c-card>
@@ -118,7 +125,7 @@ watch(route, (r) => {
   box-sizing: border-box;
 
   .tool-header {
-    padding: 40px 0;
+    padding: 40px 10px;
     width: 100%;
 
     .n-h1 {

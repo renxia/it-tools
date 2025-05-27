@@ -14,6 +14,7 @@ import { config } from './config';
 import { routes as demoRoutes } from './ui/demo/demo.routes';
 import CategoriesList from './pages/CategoriesList.vue';
 import FavoriteList from './pages/FavoriteList.vue';
+import ListByTag from './pages/ListByTag.vue';
 
 const toolsRoutes = tools.map(({ path, name, component, ...config }) => ({
   path,
@@ -50,6 +51,11 @@ const router = createRouter({
       path: '/category/:category',
       name: 'Category',
       component: CategoriesList,
+    },
+    {
+      path: '/tag/:tag',
+      name: 'Tag',
+      component: ListByTag,
     },
     ...toolsRoutes,
     ...toolsRedirectRoutes,

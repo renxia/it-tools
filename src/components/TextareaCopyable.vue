@@ -8,6 +8,7 @@ import xmlHljs from 'highlight.js/lib/languages/xml';
 import yamlHljs from 'highlight.js/lib/languages/yaml';
 import iniHljs from 'highlight.js/lib/languages/ini';
 import markdownHljs from 'highlight.js/lib/languages/markdown';
+import { useI18n } from 'vue-i18n';
 import { useCopy } from '@/composable/copy';
 
 const props = withDefaults(
@@ -17,14 +18,17 @@ const props = withDefaults(
     language?: string
     copyPlacement?: 'top-right' | 'bottom-right' | 'outside' | 'none'
     copyMessage?: string
+    wordWrap?: boolean
   }>(),
   {
     followHeightOf: null,
     language: 'txt',
     copyPlacement: 'top-right',
-    copyMessage: 'Copy to clipboard',
+    wordWrap: false,
   },
 );
+const { t } = useI18n();
+
 hljs.registerLanguage('sql', sqlHljs);
 hljs.registerLanguage('json', jsonHljs);
 hljs.registerLanguage('html', xmlHljs);
@@ -33,11 +37,11 @@ hljs.registerLanguage('yaml', yamlHljs);
 hljs.registerLanguage('toml', iniHljs);
 hljs.registerLanguage('markdown', markdownHljs);
 
-const { value, language, followHeightOf, copyPlacement, copyMessage } = toRefs(props);
-const { height } = followHeightOf.value ? useElementSize(followHeightOf) : { height: ref(null) };
+const { value, language, followHeightOf, copyPlacement, copyMessage, wordWrap } = toRefs(props);
+const { height } = useElementSize(followHeightOf);
 
 const { copy, isJustCopied } = useCopy({ source: value, createToast: false });
-const tooltipText = computed(() => isJustCopied.value ? 'Copied!' : copyMessage.value);
+const tooltipText = computed(() => isJustCopied.value ? t('comm.copyed') : copyMessage?.value || t('comm.copy'));
 </script>
 
 <template>
@@ -46,10 +50,10 @@ const tooltipText = computed(() => isJustCopied.value ? 'Copied!' : copyMessage.
       <n-scrollbar
         x-scrollable
         trigger="none"
-        :style="height ? `min-height: ${height - 40 /* card padding */ + 10 /* negative margin compensation */}px` : ''"
+        :style="height ? `height: ${height - 40 /* card padding */ + 10 /* negative margin compensation */}px` : 'max-height: 400px'"
       >
         <n-config-provider :hljs="hljs">
-          <n-code :code="value" :language="language" :trim="false" data-test-id="area-content" />
+          <n-code :word-wrap="wordWrap" :code="value" :language="language" :trim="false" data-test-id="area-content" />
         </n-config-provider>
       </n-scrollbar>
       <div absolute right-10px top-10px>

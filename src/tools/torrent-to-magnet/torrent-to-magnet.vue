@@ -35,7 +35,7 @@ async function onUpload(files: File[]) {
 <template>
   <div>
     <c-card>
-      <c-file-upload title="Drag and drop a file here, or click to select a file" multiple accept=".torrent" @files-upload="onUpload" />
+      <c-file-upload multiple accept=".torrent" @files-upload="onUpload" />
       <c-input-text :value="fileInput" multiline readonly :placeholder="t('tools.torrent-to-magnet.title')" rows="5" my-2 />
 
       <div flex justify-center>
