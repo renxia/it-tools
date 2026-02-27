@@ -49,7 +49,7 @@ const siderWidth = computed(() => {
     >
       <slot name="sider" />
     </n-layout-sider>
-    <n-layout class="content">
+    <n-layout id="mLayoutContent" class="content">
       <slot name="content" />
       <div v-show="isSmallScreen && !isMenuCollapsed" class="overlay" @click="isMenuCollapsed = true" />
     </n-layout>
@@ -70,7 +70,25 @@ const siderWidth = computed(() => {
 .content {
   // background-color: #f1f5f9;
   ::v-deep(.n-layout-scroll-container) {
-    padding: 26px;
+    padding: 0;
+  }
+
+  &.wide {
+    ::v-deep(.n-layout-scroll-container) {
+      padding: 0;
+    }
+
+    ::v-deep {
+      // .tool-layout,
+      .tool-content {
+        max-width: none;
+        margin: 5px;
+
+        & > * {
+          flex: auto;
+        }
+      }
+    }
   }
 }
 

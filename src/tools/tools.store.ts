@@ -10,19 +10,21 @@ export const useToolStore = defineStore('tools', () => {
   const favoriteToolsName = useITStorage('favoriteToolsName', []) as Ref<string[]>;
   const { t } = useI18n();
 
-  const tools = computed<ToolWithCategory[]>(() => allTools
-    .map((tool) => {
+  const tools = computed<ToolWithCategory[]>(() =>
+    allTools.map(tool => {
       const toolI18nKey = tool.path.replace(/\//g, '');
       const category = tool.category || 'Development';
+      if (!tool.categoryKey) tool.categoryKey = tool.category.toLowerCase().replace(/ /g, '-');
 
-      return ({
+      return {
         ...tool,
         path: tool.path,
         name: t(`tools.${toolI18nKey}.title`, tool.name),
         description: t(`tools.${toolI18nKey}.description`, tool.description),
         category: t(`tools.categories.${category.toLowerCase()}`, category),
-      });
-    }));
+      };
+    })
+  );
 
   const toolsByCategory = computed<ToolCategory[]>(() => {
     return _.chain(tools.value)
@@ -62,12 +64,27 @@ export const useToolStore = defineStore('tools', () => {
     },
 
     isToolFavorite({ tool }: { tool: MaybeRef<Tool> }) {
-      return favoriteToolsName.value.includes(get(tool).name)
-        || favoriteToolsName.value.includes(get(tool).path);
+      return favoriteToolsName.value.includes(get(tool).name) || favoriteToolsName.value.includes(get(tool).path);
     },
 
     updateFavoriteTools(newOrder: ToolWithCategory[]) {
       favoriteToolsName.value = newOrder.map(tool => tool.path);
+    },
+    getRelatedTools(path: string) {
+      const list: ToolWithCategory[] = [];
+
+      if (path) {
+        const tool = tools.value.find(d => d.path === path);
+        if (tool && tool.keywords) {
+          tools.value.forEach(t => {
+            if (tool.keywords.some(k => t.keywords.includes(k))) {
+              list.push(t);
+            }
+          });
+        }
+      }
+
+      return list.slice(0, 20);
     },
   };
 });

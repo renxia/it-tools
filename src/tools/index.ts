@@ -1,17 +1,26 @@
 import markdownit from 'markdown-it';
 import { IconExternalLink } from '@tabler/icons-vue';
-import type { ExternalTool, ToolCategory, ToolWithCategory, ToolsFilter } from './tools.types';
+import type {  ExternalTool, Tool, ToolCategory, ToolWithCategory, ToolsFilter } from './tools.types';
 import { translate as t } from '@/plugins/i18n.plugin';
+import { loadRemoteTools, FLTools } from './frame-loader/fl-tools';
+import { defineTool } from './tool';
+import storage from '@/utils/storage';
 
 const modules = import.meta.glob<true, string, ToolWithCategory>('./*/index.ts', { eager: true, import: 'tool' });
+const remoteFLTools: ToolWithCategory[] = [];
 
 const base = import.meta.env.BASE_URL ?? '/';
-let filterConfig: ToolsFilter = {};
+let filterConfig: ToolsFilter = storage.get<ToolsFilter>('tools-filter');
 try {
-  const remoteConfigResponse = await fetch(`${base}tools-filter.json`);
-  if (remoteConfigResponse.ok) {
-    filterConfig = (await remoteConfigResponse.json()) as ToolsFilter;
+  if (!filterConfig) {
+    const remoteConfigResponse = await fetch(`${base}tools-filter.json`);
+    if (remoteConfigResponse.ok) {
+      filterConfig = (await remoteConfigResponse.json()) as ToolsFilter;
+      storage.set('tools-filter', filterConfig, 3600 * 24);
+    }
   }
+
+  remoteFLTools.push(...await loadRemoteTools());
 }
 catch {}
 
@@ -46,8 +55,11 @@ const filters = {
   includeToolsFilterRegex: makeRegExp(filterConfig.includeToolsFilterRegex),
 };
 
-const filteredModules = allModules.filter((tool) => {
+const filteredModules = [...FLTools, ...Object.values(modules), ...remoteFLTools].filter((tool: ToolWithCategory) => {
   const category = tool.category || 'Development';
+
+  if (!tool.categoryKey) tool.categoryKey = category.toLowerCase().replace(/ /g, '-');
+
   if (filters.includeToolsFilterRegex?.test(tool.path)) {
     return true;
   }

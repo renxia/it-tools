@@ -32,4 +32,10 @@ const theme = useTheme();
     margin-bottom: 20px;
   }
 }
+// 小屏幕优化
+@media (max-width: 768px) {
+  .c-card {
+    padding: 10px 12px;
+  }
+}
 </style>

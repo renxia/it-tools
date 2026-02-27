@@ -16,30 +16,20 @@ about:
   favorites-imported-successfully: 收藏夹导入成功！
   error-importing-favorites-e: 导入收藏夹时出错：{0}
   content-fork: >
-    # 关于 IT-Tools
+    # 关于有趣工具箱
 
-    这个精彩的网站最初由 [Corentin
-    Thomasset](https://corentin.tech?utm_source=it-tools&utm_medium=about)
-    倾情打造，并由 ShareVB 进行扩展，汇集了开发者和 IT
-    工作者所需的实用工具。如果您觉得它有用，请分享给您认为可能也会有用的人，别忘了将其添加到您的快捷方式栏中！
+    本工具箱网站汇集大量了对开发人员和 IT 从业者有用的工具，所提供的绝大部分工具均免费提供无限制性的使用。如果对您有帮助，请将其分享给您的朋友，并且添加到收藏夹中！
 
-    IT Tools 是开源的（遵循 GPL-3.0 许可证），并且永远免费。如果您想支持我在此分支上的工作，并鼓励我添加更多工具或功能，请考虑通过
-    [赞助我](https://www.buymeacoffee.com/sharevb) 来支持。
+    本网站基于开源工具库 [IT-Tools]() 二次开发，并新增了大量定制化的在线工具。
 
-    ## 技术
+    如果您想支持我的工作，并鼓励我添加更多工具，请考虑通过 [赞助我](https://lzw.me/donate) 进行支持。
 
-    IT Tools 使用 Vue.js (Vue 3) 和 Naive UI 组件库开发，并由 Vercel
-    托管和持续部署。部分工具使用了第三方开源库，您可以在代码库的
-    [package.json](https://github.com/sharevb/it-tools/blob/main/package.json)
-    文件中找到完整列表。
+    ## 发现了 Bug？缺少工具？
 
-    ## 发现错误？缺少工具？
+    如果目前这里没有您需要的工具，并且您认为它可能有用，欢迎在 [留言板](https://lzw.me/tools-messagewall) 中提交新增功能的请求。
 
-    如果您需要某个工具，而该工具目前尚未提供，并且您认为它很有用，欢迎在 GitHub 代码库的
-    [issues](https://github.com/sharevb/it-tools/issues/new/choose) 部分提交功能请求。
+    如果您发现了 Bug，或者某些功能未能按预期工作，请在 [留言板](https://lzw.me/tools-messagewall) 中提交错误报告。
 
-    如果您发现错误，或者某些功能无法按预期运行，请在 GitHub 代码库的
-    [issues](https://github.com/sharevb/it-tools/issues/new/choose) 部分提交错误报告。
 favoriteButton:
   remove: 从收藏夹中移除
   add: 添加到收藏夹
@@ -67,16 +57,23 @@ locale-selector:
   select-a-language: 选择语言
 home:
   categories:
+    tag: '标签'
+    relatedTools: '相关工具'
     newestTools: 最新工具
     favoriteTools: 你的收藏工具
     allTools: 所有工具
     favoritesDndToolTip: 拖放以重新排序收藏
-  subtitle: 开发者实用工具
-  toggleMenu: 切换菜单
-  home: 首页
-  uiLib: UI库
-  support: 支持IT工具开发
-  buyMeACoffee: 请我喝杯咖啡
+    noFavoriteToolsText: 没有收藏的工具
+    toolCount: '{count} 个工具'
+    browseByCategory: 按类别浏览
+  title: '有趣工具箱'
+  subtitle: '好用的工具都想有'
+  lucky: '碰碰运气'
+  toggleMenu: '切换菜单'
+  home: '主页'
+  uiLib: 'UI 库'
+  support: '支持 IT 工具开发'
+  buyMeACoffee: '赞助'
   follow:
     title: 你喜欢IT工具吗？
     p1: 在
@@ -87,15 +84,33 @@ home:
   loading-more-tools: 正在加载更多工具……
   nav:
     github: GitHub仓库
-    githubRepository: IT工具GitHub仓库
+    githubRepository: 'GitHub 仓库'
     twitterX: X账号
     twitterXAccount: IT工具X账号
-    about: 关于IT工具
+    about: '关于有趣工具箱'
     darkMode: 暗黑模式
     lightMode: 浅色模式
     mode: 切换暗黑/浅色模式
     aboutLabel: 关于
+
+ui:
+  c-file-upload:
+    title: 拖放文件到这里，或点击选择文件
+    browse-files: '选择文件'
+
+comm:
+  copy: 复制
+  copyed: 已复制！
+  download: 下载
+  input: 输入
+  inputPlaceholder: '请输入...'
+  output: 输出
+
 tools:
+  text-duplicate-remove:
+    title: 文本去重
+    description: 在线文本去重工具，支持去除所有重复行、仅保留首次出现、仅保留最后出现。
+
   chronometer:
     title: 秒表
     description: 监测某事物的持续时间。基本上是一个具备简单计时功能的秒表。
@@ -3121,8 +3136,8 @@ tools:
       label-country: 国家
       title-timezones-to-countries: 时区到国家
   torrent-to-magnet:
-    title: 种子转磁力链接
-    description: 将种子文件转换为磁力链接URL
+    title: BT种子转磁力链接
+    description: 将BT种子文件转换为磁力链接URL
     texts:
       message-invalid-torrent-content: 无效的种子内容
       label-file: 文件
@@ -4281,6 +4296,8 @@ tools:
       none;）可能阻止文本选择。通常的解决方法是使用开发者工具（F12）选择"复制→外部HTML"。此工具通过直接从复制的HTML中提取"innerText"简化了此过程。'
   otp-code-generator-and-validator:
     texts:
+      label-app-name: 应用名
+      label-account: 账号
       message-secret-should-be-a-base32-string: 密钥应为Base32字符串
       message-please-set-a-secret: 请设置密钥
       label-secret: 密钥
@@ -4494,18 +4511,21 @@ tools:
         raid-1-consists-of-an-exact-copy-of-the-data-mirror-across-two-or-more-disks-the-array-will-operate-as-long-as-at-least-one-drive-is-operational: RAID 1由跨两个或多个磁盘的精确数据副本（镜像）组成。只要至少一个磁盘正常运行，阵列即可运行。
         raid-0-requires-at-least-1-disk: RAID 0至少需要1个磁盘
         raid-0-splits-data-evenly-across-2-or-more-disks-without-redunancy-or-fault-tolerance-creating-one-large-storage-space: RAID 0将数据均匀拆分到2个或多个磁盘，无冗余或容错，创建一个大的存储空间。
+
   categories:
-    favorite-tools: 收藏工具
+    fun: '好玩'
+    documents: '文档手册'
+    others: '其他'
+    favorite-tools: 我的收藏
     crypto: 加密
     converter: 转换器
-    web: 网页工具
-    images and videos: 图像与视频
-    development: 开发工具
-    network: 网络工具
+    web: 网页
+    development: 开发
+    network: 网络
     math: 数学计算
-    measurement: 测量工具
+    measurement: 测量
     data: 数据处理
-    text: 文本工具
+    text: 文本
     yaml: YAML
     pdf: PDF
     xml: XML
@@ -4514,8 +4534,9 @@ tools:
     docker: Docker
     json: JSON
     datetime: 日期时间
-    gaming: 游戏工具
-    images: 图像
+    gaming: 在线小游戏
+    images-and-videos: 图像与视频
+    images: 图像与视频
     generators: 生成器
     converters: 转换器
     barcodes: 条形码

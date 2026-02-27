@@ -1,8 +1,11 @@
 import { URL, fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
+import { readdirSync } from 'node:fs';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import wasm from 'vite-plugin-wasm';
 import { splashScreen } from 'vite-plugin-splash-screen';
+
+import seoPrerender from 'vite-plugin-seo-prerender';
 
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -20,10 +23,15 @@ import IconsResolver from 'unplugin-icons/resolver';
 import VueI18n from '@intlify/unplugin-vue-i18n/vite';
 
 const baseUrl = process.env.BASE_URL || '/';
-
+const f = ['iban-validator-and-parser'];
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    seoPrerender({
+      // delay: 5000,
+      concurrency: 50,
+      routes: readdirSync('./src/tools').filter(d => !f.includes(d) && !d.includes('.') && d.includes('-')).map(d => `/${d}`),
+    }),
     VueI18n({
       runtimeOnly: true,
       compositionOnly: true,
@@ -64,14 +72,18 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       workbox: {
-        globPatterns: (process.env.VITE_VERCEL_DEPLOY ? ["**\/*.{css,html}"] : ["**\/*.{js,wasm,css,html}"]),
+        // globPatterns: (process.env.VITE_VERCEL_DEPLOY ? ["**\/*.{css,html}"] : ["**\/*.{js,wasm,css,html}"]),
         maximumFileSizeToCacheInBytes: 25 * 1024 ** 2,
+        globPatterns: ['**/*.{css,ico,png,svg}'],
+        navigateFallbackDenylist: [/^\/[a-zA-Z0-9\-]+\/?$/],
       },
       strategies: 'generateSW',
       manifest: {
-        name: 'IT Tools',
-        description: 'Aggregated set of useful tools for developers.',
+        name: '有趣工具箱',
+        short_name: '工具箱',
+        description: '为开发人员提供的一组有用工具。',
         display: 'standalone',
+        lang: 'zh-CN',
         start_url: `${baseUrl}?utm_source=pwa&utm_medium=pwa`,
         scope: baseUrl,
         orientation: 'any',
@@ -113,7 +125,8 @@ export default defineConfig({
     wasm(),
     splashScreen({
       logoSrc: 'logo.svg',
-      splashBg: '#383838',
+      splashBg: '#a8ecc7ff',
+      loaderType: "dots"
     }),
   ],
   base: baseUrl,
@@ -143,6 +156,8 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
+    outDir: 'dist/it-tools',
+    chunkSizeWarningLimit: 2048,
     // sourcemap: !process.env.VERCEL,
     minify: !process.env.VERCEL,
     reportCompressedSize: !process.env.VERCEL,

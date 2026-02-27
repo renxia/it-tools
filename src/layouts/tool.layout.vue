@@ -15,19 +15,19 @@ import type { Tool } from '@/tools/tools.types';
 const route = useRoute();
 
 const head = computed<HeadObject>(() => ({
-  title: `${route.meta.name} - IT Tools`,
+  title: `${route.meta.name} - 忒有趣工具箱`,
   meta: [
     {
       itemprop: 'name',
-      content: `${route.meta.name} - IT Tools`,
+      content: `${route.meta.name} - 忒有趣工具箱`,
     },
     {
       property: 'og:title',
-      content: `${route.meta.name} - IT Tools`,
+      content: `${route.meta.name} - 忒有趣工具箱`,
     },
     {
       property: 'twitter:title',
-      content: `${route.meta.name} - IT Tools`,
+      content: `${route.meta.name} - 忒有趣工具箱`,
     },
     {
       name: 'description',
@@ -76,11 +76,42 @@ const toolFooter = computed<string>(() => {
 const themeVars = useThemeVars();
 
 const linkTheme = useTheme();
+
+const isFrameLoader = ref(route.meta.config?.remoteUrl != null);
+
+watch(route, (r) => {
+  const cfg = (r.meta as unknown as Tool).config || {};
+
+  isFrameLoader.value = cfg.remoteUrl != null;
+  setTimeout(() => {
+    const h5Utils = (window as any).h5Utils;
+
+    if (h5Utils?.initTwikoo) {
+      const el = document.getElementById('twikoo');
+
+      if (el) {
+        el.innerHTML = '';
+
+        if (!isFrameLoader.value) {
+          h5Utils.initTwikoo({ el: '#twikoo', path: r.path });
+        }
+      }
+    }
+
+    const gga = document.getElementById('gga');
+    if (gga) {
+      gga.style.display = cfg.remoteUrl ? 'none' : 'block';
+      if (h5Utils?.initGa && gga.innerHTML.trim() === '') {
+        h5Utils.initGa(gga);
+      }
+    }
+  }, 50);
+}, { immediate: true });
 </script>
 
 <template>
   <BaseLayout>
-    <div class="tool-layout">
+    <div class="tool-layout mx-auto max-w-1400px">
       <div class="tool-header">
         <div flex flex-nowrap items-center justify-between>
           <n-h1>
@@ -121,13 +152,40 @@ const linkTheme = useTheme();
         <div class="description">
           {{ toolDescription }}
         </div>
+
+        <div v-if="route.meta.keywords?.length || route.meta.categoryKey" class="tags">
+          <div v-if="route.meta.categoryKey" class="mr-2 mt-2 inline-block">
+            <router-link :to="`/category/${route.meta.categoryKey}`">
+              <n-tag type="info" class="cursor-pointer">
+                {{ $t(`tools.categories.${route.meta.category?.toLowerCase()}`, { default: route.meta.category || route.meta.categoryKey }) }}
+              </n-tag>
+            </router-link>
+          </div>
+
+          <router-link v-for="tag in (route.meta.keywords || [])" :key="tag" :to="`/tag/${tag}`">
+            <n-tag type="success" class="mr-2 mt-2 cursor-pointer">
+              {{ tag }}
+            </n-tag>
+          </router-link>
+        </div>
       </div>
     </div>
 
-    <div class="tool-content">
+    <div class="tool-content mx-auto mb-50px max-w-1400px">
       <Suspense>
         <slot />
       </Suspense>
+
+      <div v-if="!isFrameLoader">
+        <RelatedTools />
+
+        <div id="gga" class="text-center" style="display: none;" />
+        <c-card id="twikooWrapper" class="mb-4 mt-4" title="">
+          <c-collapse title="留言区">
+            <div id="twikoo" />
+          </c-collapse>
+        </c-card>
+      </div>
     </div>
 
     <div class="tool-footer">
@@ -163,18 +221,17 @@ const linkTheme = useTheme();
   overflow-x: auto;
 
   ::v-deep(& > *) {
-    flex: 0 1 1200px;
+    // flex: 0 1 1200px;
+    width: 100%;
     min-width:0;
   }
 }
 
 .tool-layout {
-  max-width: 1200px;
-  margin: 0 auto;
   box-sizing: border-box;
 
   .tool-header {
-    padding: 40px 0;
+    padding: 20px 10px 15px 10px;
     width: 100%;
 
     .n-h1 {
@@ -235,6 +292,25 @@ const linkTheme = useTheme();
 
   &:focus {
     color: v-bind('linkTheme.default.outline.color');
+  }
+}
+
+
+@media (max-width: 1440px) {
+  .tool-content,
+  .tool-layout {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .tool-layout {
+    .tool-header {
+      padding: 15px 10px 10px 10px;
+
+      .n-h1 {
+        font-size: 32px;
+      }
+    }
   }
 }
 </style>

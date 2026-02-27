@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>有趣工具箱</ShortName>
+  <Description>程序员的工具箱</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Tags>tool</Tags>
+  <Image height="16" width="16" type="image/x-icon">https://tool.lzw.me/favicon.ico</Image>
+  <Url type="text/html" template="https://tool.lzw.me/search/?query={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://tool.lzw.me/opensearch.xml"/>
+  <moz:SearchForm>https://tool.lzw.me/search</moz:SearchForm>
+</OpenSearchDescription>

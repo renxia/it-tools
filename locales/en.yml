@@ -4,6 +4,40 @@
   maybe: Maybe the cache is doing tricky things, try force-refreshing?
   backHome: Back home
 about:
+  content: >
+    # About IT-Tools
+
+    This wonderful website, made with ❤ by [Corentin
+    Thomasset](https://corentin.tech?utm_source=it-tools&utm_medium=about) ,
+    aggregates useful tools for developer and people working in IT. If you find
+    it useful, please feel free to share it to people you think may find it
+    useful too and don't forget to bookmark it in your shortcut bar!
+
+    IT Tools is open-source (under the GPL-3.0 license) and free, and will
+    always be, but it costs me money to host and renew the domain name. If you
+    want to support my work, and encourage me to add more tools, please consider
+    supporting by [sponsoring me](https://www.buymeacoffee.com/sharevb).
+
+    ## Technologies
+
+    IT Tools is made in Vue.js (Vue 3) with the the Naive UI component library
+    and is hosted and continuously deployed by Vercel. Third-party open-source
+    libraries are used in some tools, you may find the complete list in the
+    [package.json](https://github.com/sharevb/it-tools/blob/main/package.json)
+    file of the repository.
+
+    ## Found a bug? A tool is missing?
+
+    If you need a tool that is currently not present here, and you think can be
+    useful, you are welcome to submit a feature request in the [issues
+    section](https://github.com/sharevb/it-tools/issues/new/choose) in the
+    GitHub repository.
+
+    And if you found a bug, or something doesn't work as expected, please file a
+    bug report in the [issues
+    section](https://github.com/sharevb/it-tools/issues/new/choose) in the
+    GitHub repository.
+    And if you found a bug, or something doesn't work as expected, please file a bug report in the [issues section](https://github.com/CorentinTh/it-tools/issues/new/choose) in the GitHub repository.
   alltools-title: All {toolsCount} Tools
   tools:
     name: Name
@@ -20,9 +54,7 @@ about:
     shortcut bar!
 
     IT Tools is open-source (under the GPL-3.0 license) and free, and will
-    always be. If you want to support my work on this fork, and encourage me to
-    add more tools or functionalities, please consider supporting by [sponsoring
-    me](https://www.buymeacoffee.com/sharevb).
+    always be, but it costs me money to host and renew the domain name.
 
     ## Technologies
 
@@ -50,13 +82,13 @@ about:
   favorites-imported-successfully: Favorites imported successfully!
   error-importing-favorites-e: 'Error importing favorites: {0}'
 favoriteButton:
-  remove: Remove from favorites
-  add: Add to favorites
+  remove: 'Remove from favorites'
+  add: 'Add to favorites'
 toolCard:
   new: New
 search:
   label: Search
-  placeholder: Type to search a tool or a command...
+  placeholder: 'Type to search a tool or a command...'
 spanCopyable:
   copy: Copy to clipboard
   copied: Copied!
@@ -76,35 +108,59 @@ locale-selector:
   select-a-language: Select a language
 home:
   categories:
+    tag: 'Tag'
+    relatedTools: 'Related tools'
     newestTools: Newest tools
-    favoriteTools: Your favorite tools
-    allTools: All the tools
-    favoritesDndToolTip: Drag and drop to reorder favorites
-  subtitle: Handy tools for developers
-  toggleMenu: Toggle menu
+    favoriteTools: 'Your favorite tools'
+    allTools: 'All the tools'
+    favoritesDndToolTip: 'Drag and drop to reorder favorites'
+    noFavoriteToolsText: 'No favorite tools yet'
+    toolCount: '{count} tools'
+    browseByCategory: 'Browse by category'
+  title: 'COOL TOOLBOX'
+  subtitle: 'Handy tools for developers'
+  lucky: "Lucky"
+  toggleMenu: 'Toggle menu'
   home: Home
-  uiLib: UI Lib
-  support: Support IT-Tools development
-  buyMeACoffee: Buy me a coffee
+  uiLib: 'UI Lib'
+  support: 'Support IT-Tools development'
+  buyMeACoffee: 'Buy me a coffee'
   follow:
-    title: You like it-tools?
-    p1: Give us a star on
-    githubRepository: IT-Tools GitHub repository
-    p2: or follow us on
-    twitterXAccount: IT-Tools X account
-    thankYou: Thank you!
-  loading-more-tools: Loading more tools...
+    title: 'You like it-tools?'
+    p1: 'Give us a star on'
+    githubRepository: 'IT-Tools GitHub repository'
+    p2: 'or follow us on'
+    twitterXAccount: 'IT-Tools X account'
+    thankYou: 'Thank you!'
   nav:
-    github: GitHub repository
-    githubRepository: IT-Tools GitHub repository
-    twitterX: X account
-    twitterXAccount: IT Tools X account
-    about: About  IT-Tools
-    darkMode: Dark mode
-    lightMode: Light mode
-    mode: Toggle dark/light mode
-    aboutLabel: About
+    github: 'GitHub repository'
+    githubRepository: 'IT-Tools GitHub repository'
+    twitterX: 'X account'
+    twitterXAccount: 'IT Tools X account'
+    about: 'About  IT-Tools'
+    aboutLabel: 'About'
+    darkMode: 'Dark mode'
+    lightMode: 'Light mode'
+    mode: 'Toggle dark/light mode'
+
+ui:
+  c-file-upload:
+    title: 'Drag and drop files here, or click to select files'
+    browse-files: 'Browse files'
+
+comm:
+  copy: Copy to Clipboard
+  copyed: Copied!
+  download: Download
+  input: Input
+  inputPlaceholder: 'Input...'
+  output: Output
+
 tools:
+  text-duplicate-remove:
+    title: Text duplicate remove
+    description: Online text duplicate remove tool, supports removing all duplicate lines, keeping the first appearance, and keeping the last appearance.
+
   chronometer:
     title: Chronometer
     description: >-
@@ -3271,7 +3327,7 @@ tools:
       title-timezones-to-countries: Timezones to Countries
   torrent-to-magnet:
     title: Torrent to Magnet
-    description: Convert a torrent file to a Magnet url
+    description: Convert a torrent file to a Magnet url online.
     texts:
       message-invalid-torrent-content: Invalid torrent content
       label-file: File
@@ -4476,6 +4532,8 @@ tools:
       by extracting the "inner Text" directly from the copied HTML.
   otp-code-generator-and-validator:
     texts:
+      label-app-name: APP Name
+      label-account: Account
       message-secret-should-be-a-base32-string: Secret should be a base32 string
       message-please-set-a-secret: Please set a secret
       label-secret: Secret
@@ -4727,12 +4785,13 @@ tools:
         raid-0-splits-data-evenly-across-2-or-more-disks-without-redunancy-or-fault-tolerance-creating-one-large-storage-space: >-
           RAID 0 splits data evenly across 2 or more disks without redunancy or
           fault tolerance creating one large storage space.
+
   categories:
     favorite-tools: Your favorite tools
     crypto: Crypto
     converter: Converter
     web: Web
-    images and videos: Images & Videos
+    images-and-videos: Images & Videos
     development: Development
     network: Network
     math: Math
@@ -4748,13 +4807,14 @@ tools:
     json: JSON
     datetime: DateTime
     gaming: Gaming
-    images: Images
+    images: Images & Videos
     generators: Generators
     converters: Converters
     barcodes: Barcodes
     physics: Physics
     cheatsheets: Cheatsheets
     forensic: Forensic
+
   websocket-tester:
     title: Websocket tester
     description: Allows to test WebSocket connections

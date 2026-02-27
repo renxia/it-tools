@@ -7,8 +7,12 @@ import { tools } from './tools';
 import { config } from './config';
 import { routes as demoRoutes } from './ui/demo/demo.routes';
 import { useAppTheme } from './ui/theme/themes';
+import CategoriesList from './pages/CategoriesList.vue';
+import FavoriteList from './pages/FavoriteList.vue';
+import ListByTag from './pages/ListByTag.vue';
 
 const $loading = useLoading();
+
 const toolsRoutes = tools.map(({ path, name, component, ...config }) => ({
   path,
   name,
@@ -23,6 +27,13 @@ const toolsRedirectRoutes = tools
 
 const router = createRouter({
   history: createWebHistory(config.app.baseUrl),
+  scrollBehavior(_to, _from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { top: 0 };
+    }
+  },
   routes: [
     {
       path: '/',
@@ -33,6 +44,22 @@ const router = createRouter({
       path: '/about',
       name: 'about',
       component: () => import('./pages/About.vue'),
+    },
+    {
+      path: '/favorite',
+      name: 'favorite',
+      component: FavoriteList,
+      meta: { isPage: true },
+    },
+    {
+      path: '/category/:category',
+      name: 'Category',
+      component: CategoriesList,
+    },
+    {
+      path: '/tag/:tag',
+      name: 'Tag',
+      component: ListByTag,
     },
     ...toolsRoutes,
     ...toolsRedirectRoutes,

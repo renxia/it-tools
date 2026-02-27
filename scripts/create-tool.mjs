@@ -87,7 +87,7 @@ test.describe('Tool - ${toolNameTitleCase}', () => {
   });
 
   test('Has correct title', async ({ page }) => {
-    await expect(page).toHaveTitle('${toolNameTitleCase} - IT Tools');
+    await expect(page).toHaveTitle('${toolNameTitleCase} - 有趣工具箱');
   });
 
   test('', async ({ page }) => {

@@ -28,6 +28,8 @@ function refreshSecret() {
 }
 
 const counter = ref(0);
+const appName = ref('IT-TOOLS');
+const account = ref('lzw.me');
 
 const [hotpValues] = computedRefreshable(
   () =>
@@ -46,7 +48,7 @@ const [tokens] = computedRefreshable(
   { throttle: 500 },
 );
 
-const keyUri = computed(() => buildKeyUri({ secret: secret.value }));
+const keyUri = computed(() => buildKeyUri({ secret: secret.value, app: appName.value, account: account.value }));
 
 const { qrcode } = useQRCode({
   text: keyUri,
@@ -71,6 +73,16 @@ const secretValidationRules = [
 
 <template>
   <div style="max-width: 350px">
+    <c-input-text
+      v-model:value="appName"
+      :label="t('tools.otp-code-generator-and-validator.texts.label-app-name')"
+      mb-5
+    />
+    <c-input-text
+      v-model:value="account"
+      :label="t('tools.otp-code-generator-and-validator.texts.label-account')"
+      mb-5
+    />
     <c-input-text
       v-model:value="secret"
       :label="t('tools.otp-code-generator-and-validator.texts.label-secret')"
@@ -109,7 +121,6 @@ const secretValidationRules = [
         :placeholder="t('tools.otp-code-generator-and-validator.texts.placeholder-start-counter-for-hotp-at')"
         type="number"
         mb-5
-        mt-5
       />
       <InputCopyable
         v-for="(value, currentCounter) in hotpValues" :key="currentCounter"

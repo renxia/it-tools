@@ -23,6 +23,7 @@
   ],
   "scripts": {
     "dev": "vite",
+    "b": "bun scripts/build.ts",
     "build": "vue-tsc --noEmit && . ./set_node_mem.sh && vite build",
     "preview": "vite preview --port 5050",
     "test": "TZ=UTC npm run test:unit",
@@ -443,6 +444,7 @@
     "vite": "^4.4.9",
     "vite-plugin-node-polyfills": "^0.23.0",
     "vite-plugin-pwa": "^1.1.0",
+    "vite-plugin-seo-prerender": "^1.1.1",
     "vite-plugin-splash-screen": "^0.2.0",
     "vite-plugin-wasm": "^3.4.1",
     "vite-svg-loader": "^4.0.0",

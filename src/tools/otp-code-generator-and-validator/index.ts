@@ -16,6 +16,7 @@ export const tool = defineTool({
     'password',
     'authentication',
     'MFA',
+    '2FA',
     'mobile',
     'device',
     'security',

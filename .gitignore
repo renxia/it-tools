@@ -25,6 +25,7 @@ coverage
 *.sln
 *.sw?
 
+.cursor/rules/
 .env
 /test-results/
 /playwright-report/

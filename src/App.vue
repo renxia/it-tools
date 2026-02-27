@@ -52,8 +52,8 @@ syncRef(
 <template>
   <n-config-provider :theme="theme" :theme-overrides="themeOverrides">
     <NGlobalStyle />
-    <NMessageProvider placement="bottom">
-      <NNotificationProvider placement="bottom-right">
+    <NMessageProvider placement="top">
+      <NNotificationProvider placement="top-right">
         <div class="app-root">
           <component :is="layout">
             <RouterView />
@@ -110,5 +110,28 @@ body .vld-container.vl-active {
 
 body .vld-container .vl-overlay.vl-active {
   margin-top: 15%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.hide,
+.hidden {
+  display: none !important;
+}
+
+.tk-footer {
+  visibility: hidden;
+}
+
+@media (min-width: 1680px) {
+  .wd\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .wd\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
 }
 </style>
